@@ -17,6 +17,7 @@
 					<a href="board_list.jsp"><font color="#ffffff">게시판</font></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
 					<a href="login.jsp"><font color="#ffffff">로그인</font></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
 					<a href="join.jsp"><font color="#ffffff">회원가입</font></a>
+					<a href="test.jsp"><font color="#ffffff">test</font></a>
 				</td>
 				<td align="right">
 					<%
@@ -32,5 +33,3 @@
 	</tr>
 </table>
 <br/>
-
-<!--branch test-->
