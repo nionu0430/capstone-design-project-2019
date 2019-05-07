@@ -67,7 +67,7 @@ if(!"".equals(seq)){
 
 		<form method="post" name="form1" action="board_write_ok.jsp" enctype="multipart/form-data">
 		<input type="hidden" name="seq" value="<%=seq%>"/>
-		<input type="hidden" name="id" value="<%=userid%>"/>
+		<input type="hidden" name="paramid" value="<%=userid%>"/>
 
 		<table align="center" width="600">
 			<tr>

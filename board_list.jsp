@@ -3,7 +3,7 @@
 <%@ include file="conn.jsp" %><!-- 데이터베이스 연결성정 -->
 <%
 /*
-게시판 리스트
+게시판 상제
 */
 
 //검색어
@@ -56,7 +56,11 @@ String usernm = (String)session.getAttribute("USERNM");
 	<input type="hidden" id="page" name="page" value="">
 	<table align="center" width="600">
 		<tr>
-			<td align="right"><input type="button" value="글쓰기" onclick="location.href='board_write.jsp'"></td>
+			<td align="right">
+			<%if(userid!=null){%>
+			<input type="button" value="글쓰기" onclick="location.href='board_write.jsp'">
+			<%}%>
+			</td>
 		</tr>
 	</table>
 	<table align="center" width="600" class="tb">
@@ -101,13 +105,13 @@ String usernm = (String)session.getAttribute("USERNM");
 			int line_num = totalCount-(list*(pageNum-1));
 			
 			if(keyword!=null && !"".equals(keyword)){
-				sql = "select * from board a left join member b on a.writer=b.user_id where a.title like ? or a.content like ? order by  a.upseq asc, a.depth asc, a.seq desc limit "+limit+","+list;//게시글  목록을 가져온다.
+				sql = "select * from board a left join member b on a.writer=b.user_id where a.title like ? or a.content like ? order by  a.upseq desc, a.depth asc limit "+limit+","+list;//게시글  목록을 가져온다.
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, '%'+keyword+'%');
 				pstmt.setString(2, '%'+keyword+'%');
 				rs = pstmt.executeQuery();
 			}else{
-				sql = "select * from board a left join member b on a.writer=b.user_id order by a.upseq asc, a.depth asc, a.seq desc limit "+limit+","+list;//게시글  목록을 가져온다.
+				sql = "select * from board a left join member b on a.writer=b.user_id order by a.upseq desc, a.depth asc limit "+limit+","+list;//게시글  목록을 가져온다.
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();				
 			}

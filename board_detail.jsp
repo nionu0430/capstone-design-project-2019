@@ -5,7 +5,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%
 /*
-게시판 상세
+게시판 상제
 */
 
 String seq = request.getParameter("seq");
@@ -114,7 +114,7 @@ String usernm = (String)session.getAttribute("USERNM");
 		<br/>
 		<form method="post" name="form1" action="comment_ok.jsp">
 			<input type="hidden" name="bseq" value="<%=seq%>"/>
-			<input type="hidden" name="id" value="<%=userid%>"/>
+			<input type="hidden" name="paramid" value="<%=userid%>"/>
 		
 			<table border=0 align="center" width="600">
 				<%

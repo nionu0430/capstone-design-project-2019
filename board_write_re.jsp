@@ -3,6 +3,9 @@
 <%@ include file="conn.jsp" %><!-- 데이터베이스 연결성정 -->
 <%
 //로그인정보
+String userid = (String)session.getAttribute("USERID");
+String usernm = (String)session.getAttribute("USERNM");
+
 String seq = (request.getParameter("seq")==null)?"":request.getParameter("seq");
 String upseq = (request.getParameter("upseq")==null)?"":request.getParameter("upseq");
 

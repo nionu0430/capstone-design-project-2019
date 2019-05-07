@@ -63,28 +63,51 @@ try{
 
 //넘어온 게시물번호가 있으면
 if("".equals(seq)){
-	//상위게시물정보
-	String sql3 = "select * from board where seq=?";
-	PreparedStatement pstmt3 = null;
-	pstmt3 = conn.prepareStatement(sql3);
-	pstmt3.setString(1, upseq);
-	ResultSet rs3 = pstmt3.executeQuery();
-	rs3.next();
-	int depth = rs3.getInt("depth")+1;
-
 	//게시물 등록
-	String sql = "insert into board (title, content, writer, wdate, rcnt, filenm, filepath, upseq, depth) values(?,?,?,now(),0,?,?,?,?)";//게시판을 등록한다.
+	String sql = "insert into board (title, content, writer, wdate, rcnt, filenm, filepath) values(?,?,?,now(),0,?,?)";//게시판을 등록한다.
 	PreparedStatement pstmt = null;
-	ResultSet rs= null;
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, title);
 	pstmt.setString(2, content);
 	pstmt.setString(3, userid);
 	pstmt.setString(4, originalName);
 	pstmt.setString(5, fileName);
-	pstmt.setString(6, upseq);
-	pstmt.setInt(7, depth);
 	pstmt.executeUpdate();
+
+	int depth = 0;
+	int newSeq = 0;
+	int uSeq = 0;
+
+	//String sql3 = "select last_insert_id() as seq";
+	String sql3 = "select max(seq) as seq from board";
+	PreparedStatement pstmt3 = null;
+	pstmt3 = conn.prepareStatement(sql3);
+	ResultSet rs3 = pstmt3.executeQuery();
+	rs3.next();
+	newSeq = rs3.getInt("seq");
+
+	//댓글depth조회
+	if(!"".equals(upseq)){
+		//상위게시물정보
+		String sql2 = "select * from board where seq=?";
+		PreparedStatement pstmt2 = null;
+		pstmt2 = conn.prepareStatement(sql2);
+		pstmt2.setString(1, upseq);
+		ResultSet rs2 = pstmt2.executeQuery();
+		rs2.next();
+		depth = rs2.getInt("depth")+1;
+		uSeq = Integer.parseInt(upseq);
+	}else{
+		uSeq = newSeq;
+	}
+
+	String sql4 = "update board set upseq=?, depth=? where seq=?";
+	PreparedStatement pstmt4 = null;
+	pstmt4 = conn.prepareStatement(sql4);
+	pstmt4.setInt(1, uSeq);
+	pstmt4.setInt(2, depth);
+	pstmt4.setInt(3, newSeq);
+	pstmt4.executeUpdate();
 }else{
 
 	//본인이 작성한 내용이 아니면 back
