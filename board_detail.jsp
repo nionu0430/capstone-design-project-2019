@@ -5,7 +5,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%
 /*
-게시판 상제
+게시판 상세
 */
 
 String seq = request.getParameter("seq");
